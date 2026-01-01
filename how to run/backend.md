@@ -1,0 +1,1 @@
+cd "c:\Users\hp\OneDrive\Desktop\Expense Tracker Application\backend"; npm run dev
