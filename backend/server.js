@@ -26,7 +26,20 @@ app.use('/api/reports', require('./routes/reportRoutes'));
 
 // Health check endpoint
 app.get('/health', (req, res) => {
-  res.json({ status: 'Server is running' });
+  res.json({ status: 'Server is running', timestamp: new Date().toISOString() });
+});
+
+app.get('/', (req, res) => {
+  res.json({ 
+    message: 'Expense Tracker API',
+    version: '1.0.0',
+    endpoints: {
+      auth: '/api/auth',
+      expenses: '/api/expenses',
+      reports: '/api/reports',
+      health: '/health'
+    }
+  });
 });
 
 // 404 handler
@@ -45,8 +58,9 @@ app.use((err, req, res, next) => {
 
 const PORT = process.env.PORT || 5000;
 
-app.listen(PORT, () => {
+app.listen(PORT, '0.0.0.0', () => {
   console.log(`✅ Server is running on port ${PORT}`);
   console.log(`🌐 Frontend URL: ${process.env.FRONTEND_URL || 'http://localhost:3000'}`);
   console.log(`📊 Database: ${process.env.DB_NAME || 'expense_tracker'}`);
+  console.log(`🔧 Environment: ${process.env.NODE_ENV || 'development'}`);
 });
